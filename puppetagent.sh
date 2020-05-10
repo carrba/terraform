@@ -1,0 +1,1 @@
+curl -k https://puppet01.fy4zm5tetl2upnwnwqsaio4gfc.cwx.internal.cloudapp.net:8140/packages/current/install.bash | sudo bash

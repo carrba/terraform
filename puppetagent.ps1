@@ -1,0 +1,1 @@
+[Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = New-Object System.Net.WebClient; $webClient.DownloadFile('https://puppet01.fy4zm5tetl2upnwnwqsaio4gfc.cwx.internal.cloudapp.net:8140/packages/current/install.ps1', 'install.ps1'); .\install.ps1 -v
