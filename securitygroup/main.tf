@@ -6,7 +6,7 @@ data "azurerm_resource_group" "main" {
   name     = "RG-${var.prefix}"
 }
 
-resource "azurerm_network_security_group" "main" {
+resource {
   name                = "${var.prefix}-RDPSecurityGroup"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name

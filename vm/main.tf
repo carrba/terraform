@@ -167,7 +167,9 @@ resource "azurerm_virtual_machine_data_disk_attachment" "linuxdatadisk" {
   caching            = "None"
 }
 
-# Windows Install Puppet Agent Enterprise Extension
+# Windows execute Ansible PowerShell script to configure WinRM for Ansible
+# Previously - Windows Install Puppet Agent Enterprise Extension. Just point
+# fileUris to powershell script for Puppet to revert
 resource "azurerm_virtual_machine_extension" "windows_server_ext" {
   # count              = var.publisher == "MicrosoftWindowsServer" ? 1 : 0
   count                = var.puppet_client == "windows" ? 1 : 0
@@ -175,13 +177,13 @@ resource "azurerm_virtual_machine_extension" "windows_server_ext" {
   virtual_machine_id   = azurerm_virtual_machine.windows[0].id
   publisher            = "Microsoft.Compute"
   type                 = "CustomScriptExtension"
-  type_handler_version = "2.0"
+  type_handler_version = "1.9"
   settings             = <<SETTINGS
       {
         "fileUris": [
-            "https://raw.githubusercontent.com/carrba/terraform_v1/azure/puppetagent.ps1"
+            "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
         ],
-        "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file \"puppetagent.ps1\""
+        "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -file ConfigureRemotingForAnsible.ps1"
       }
     
 SETTINGS
