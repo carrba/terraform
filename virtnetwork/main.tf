@@ -1,15 +1,14 @@
-provider "azurerm" {
-  features{}
-}
 data "azurerm_resource_group" "main" {
-  name     = "RG-${var.prefix}"
+  name = var.rg
 }
+
 resource "azurerm_virtual_network" "main" {
-  name                = "${var.prefix}-network"
+  name                = "${substr(var.rg, 3, (length(var.rg)))}-network"
   address_space       = ["10.0.0.0/16"]
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
 }
+
 resource "azurerm_subnet" "internal" {
   name                 = "internal"
   resource_group_name  = data.azurerm_resource_group.main.name
@@ -18,7 +17,7 @@ resource "azurerm_subnet" "internal" {
 }
 
 data "azurerm_network_security_group" "main" {
-  name                = "${var.prefix}-RDPSecurityGroup"
+  name                = "${substr(var.rg, 3, (length(var.rg)))}-RDPSecurityGroup"
   resource_group_name = data.azurerm_resource_group.main.name
 }
 

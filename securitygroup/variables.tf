@@ -1,3 +1,7 @@
-variable prefix {}
-# variable RG_name {}
-# variable RG_location {}
+variable "rg" {
+  type = string
+}
+variable "location" {
+  type    = string
+  default = "uksouth"
+}
