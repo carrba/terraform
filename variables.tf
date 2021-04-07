@@ -11,7 +11,7 @@ variable "computer_name" {
 variable "admin_username" {
   type        = string
   description = "vm admin username"
-  default     = "carrb"
+  default     = "ansible"
 }
 
 variable "admin_password" {

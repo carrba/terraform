@@ -1,15 +1,15 @@
 provider "azurerm" {
-  features{}
+  features {}
 }
 
 # NIC Interface with DNS Servers specified
 resource "azurerm_network_interface" "DNS" {
-  count                     = var.dns[0] != "" ? 1 : 0
-  name                      = "${var.computer_name}-nic"
-  location                  = var.RG_location
-  resource_group_name       = var.RG_name
+  count               = var.dns[0] != "" ? 1 : 0
+  name                = "${var.computer_name}-nic"
+  location            = var.RG_location
+  resource_group_name = var.RG_name
   # network_security_group_id = var.Security_Group_ID
-  dns_servers               = var.dns
+  dns_servers = var.dns
 
   ip_configuration {
     name      = "IPconfiguration"
@@ -24,10 +24,10 @@ resource "azurerm_network_interface" "DNS" {
 
 # NIC Interface WITHOUT DNS Servers specified
 resource "azurerm_network_interface" "noDNS" {
-  count                     = var.dns[0] == "" ? 1 : 0
-  name                      = "${var.computer_name}-nic"
-  location                  = var.RG_location
-  resource_group_name       = var.RG_name
+  count               = var.dns[0] == "" ? 1 : 0
+  name                = "${var.computer_name}-nic"
+  location            = var.RG_location
+  resource_group_name = var.RG_name
   # network_security_group_id = var.Security_Group_ID
 
   ip_configuration {
@@ -42,11 +42,11 @@ resource "azurerm_network_interface" "noDNS" {
 }
 
 resource "azurerm_public_ip" "main" {
-  name                         = "${var.computer_name}-public-ip"
-  location                     = var.RG_location
-  resource_group_name          = var.RG_name
+  name                = "${var.computer_name}-public-ip"
+  location            = var.RG_location
+  resource_group_name = var.RG_name
   # public_ip_address_allocation = "dynamic"
-  allocation_method              = "Dynamic"
+  allocation_method = "Dynamic"
 }
 
 # Windows 
